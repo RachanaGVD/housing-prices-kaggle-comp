@@ -36,6 +36,7 @@ X_train = X_train_full[my_cols].copy()
 X_valid = X_valid_full[my_cols].copy()
 X_test = X_test_full[my_cols].copy()
 
+'''
 # Preprocessing for numerical data
 numerical_transformer = SimpleImputer(strategy='constant')
 
@@ -51,3 +52,23 @@ preprocessor = ColumnTransformer(
         ('num', numerical_transformer, numerical_cols),
         ('cat', categorical_transformer, categorical_cols)
     ])
+'''
+
+# Preprocessing for numerical data
+numerical_transformer = SimpleImputer(strategy='constant') # Your code here
+
+# Preprocessing for categorical data
+categorical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='constant')),
+    ('onehot', OneHotEncoder(handle_unknown='ignore'))
+]) # Your code here
+
+# Bundle preprocessing for numerical and categorical data
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', numerical_transformer, numerical_cols),
+        ('cat', categorical_transformer, categorical_cols)
+    ])
+
+
+
